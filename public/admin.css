@@ -4,3 +4,19 @@
 @keyframes adminIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@media(max-width:1100px){.adminStats{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.adminStats{grid-template-columns:repeat(2,1fr)}}
 
 .settingsGroup{grid-column:1/-1;border:1px solid var(--line,#dce8e2);border-radius:10px;padding:15px;background:rgba(12,71,50,.035)}.settingsGroup h3{margin:0 0 4px;font-size:16px}.settingsGroup p{font-size:11px;color:#71877d;margin:0 0 12px}.colorGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.colorGrid label{display:grid;gap:6px;font-size:10px}.colorGrid input[type=color]{width:100%;height:45px;border:1px solid #bfd3c8;border-radius:8px;padding:3px;background:transparent;cursor:pointer}.colorGrid code{font:700 9px 'IBM Plex Mono';color:#547166}.paymentBadge{display:inline-block;padding:5px 8px;border-radius:999px;background:#e8f5ee;color:#176b44;font-size:9px;white-space:nowrap}.adminBody.dark .paymentBadge{background:#123b2b;color:#b8f6d1}.adminPanel,.adminStats>div,.adminNav{transition:background .3s,color .3s,border-color .3s}.adminForm input,.adminForm select,.adminForm textarea{font-size:13px;padding:12px}.adminTable{font-size:12px}.adminTable th{font-size:10px}.adminPanel h2{font-size:29px}.adminPanel p{font-size:12px}@media(max-width:1000px){.colorGrid{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.colorGrid{grid-template-columns:repeat(2,1fr)}}
+.whatsapp-btn {
+    display: inline-block;
+    background-color: #25D366;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.whatsapp-btn:hover {
+    background-color: #1da851;
+    color: #ffffff;
+}
