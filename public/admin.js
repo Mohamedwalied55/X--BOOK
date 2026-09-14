@@ -32,3 +32,33 @@ function sendWhatsAppStatus(studentPhone, studentName, orderId, status) {
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
 }
+// دالة لتنظيف رقم الهاتف وتجهيزه
+function formatPhoneNumber(phone) {
+    let clean = phone.replace(/\D/g, ''); // إزالة الأقواس والمسافات
+    if (clean.startsWith('01')) {
+        clean = '20' + clean.substring(1); // إضافة كود مصر للرقم المحلي
+    }
+    return clean;
+}
+
+// مثال لكيفية إنشاء الصف داخل الجدول
+function renderOrderRow(order) {
+    const cleanPhone = formatPhoneNumber(order.phone);
+    const message = encodeURIComponent(`أهلاً بك يا ${order.studentName} 👋\nنود إعلامك بأن حالة طلبك رقم (#${order.id}) هي: *${order.status}*.`);
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${message}`;
+
+    return `
+        <tr>
+            <td>#${order.id}</td>
+            <td>${order.studentName}</td>
+            <td>${order.phone}</td>
+            <td>${order.status}</td>
+            <td>
+                <!-- زر تحويل للواتساب مباشرة -->
+                <a href="${whatsappUrl}" target="_blank" class="whatsapp-btn">
+                    💬 مراسلة الطالب
+                </a>
+            </td>
+        </tr>
+    `;
+}
