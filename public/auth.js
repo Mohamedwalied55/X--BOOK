@@ -1,0 +1,3 @@
+const form=document.querySelector('#loginForm')||document.querySelector('#registerForm'), error=document.querySelector('#authError');
+function setAuth(u,t){localStorage.xbookStudent=JSON.stringify(u);localStorage.xbookStudentToken=t}
+form?.addEventListener('submit',async e=>{e.preventDefault();error.textContent='';const body=Object.fromEntries(new FormData(e.target));try{const url=e.target.id==='loginForm'?'/api/student/login':'/api/student/register';const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error||'حدث خطأ');setAuth(d.student,d.token);location.href='/account'}catch(x){error.textContent=x.message}});
