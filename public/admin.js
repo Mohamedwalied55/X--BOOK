@@ -12,3 +12,23 @@ function settings(){const s=data.settings||{},hasHero=(data.media||[]).includes(
 $('#settingsForm').onsubmit=async e=>{e.preventDefault();const obj=Object.fromEntries(new FormData(e.target));await api('/api/admin/settings',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)});toast('تم حفظ الإعدادات والألوان وطرق الدفع');refresh()};$('#heroForm').onsubmit=async e=>{e.preventDefault();await api('/api/admin/hero',{method:'POST',body:new FormData(e.target)});toast('تم تحديث صورة الـHero');refresh()};$('#deleteHero')?.addEventListener('click',async()=>{await api('/api/admin/hero',{method:'DELETE'});toast('تم حذف صورة الـHero');refresh()});$$('input[type="color"]').forEach(i=>i.addEventListener('input',()=>{const c=i.value;i.nextElementSibling.textContent=c}));}
 function logout(){localStorage.removeItem('xbookToken');token='';$('#app').hidden=true;$('#login').style.display='grid'}
 $('#loginForm').onsubmit=async e=>{e.preventDefault();const body=Object.fromEntries(new FormData(e.target));try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),d=await r.json();if(!r.ok)throw Error(d.error);token=d.token;localStorage.xbookToken=token;$('#login').style.display='none';$('#app').hidden=false;refresh()}catch(x){$('#loginError').textContent=x.message}};$('#logout').onclick=logout;$$('.adminNav button').forEach(b=>b.onclick=()=>{location.hash=b.dataset.tab;render(b.dataset.tab)});$('#theme').onclick=()=>{document.body.classList.toggle('dark');localStorage.xbookDark=document.body.classList.contains('dark')?'1':'0'};if(localStorage.xbookDark==='1')document.body.classList.add('dark');if(token){$('#login').style.display='none';$('#app').hidden=false;refresh().catch(()=>logout())}
+// دالة إرسال التحديث عبر الواتساب مباشرة
+function sendWhatsAppStatus(studentPhone, studentName, orderId, status) {
+    // 1. تنظيف رقم الهاتف (إزالة المسافات والرموز وإضافة كود الدولة مثلاً 20 لمصر)
+    let cleanPhone = studentPhone.replace(/\D/g, '');
+    
+    // إذا كان الرقم يبدأ بـ 010/011/012/015، أضف كود مصر 20
+    if (cleanPhone.startsWith('01')) {
+        cleanPhone = '20' + cleanPhone.substring(1);
+    }
+
+    // 2. صياغة نص الرسالة
+    const message = `أهلاً بك يا ${studentName} 👋\nتم تحديث حالة طلبك رقم (#${orderId}) إلى: *${status}*.`;
+
+    // 3. تشفير النص ليكون صالحاً للاستخدام في رابط URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // 4. إنشاء رابط الواتساب وفتحه في نافذة جديدة
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+}
