@@ -171,3 +171,135 @@ body.dark{--bg:var(--dark);--panel:var(--dark-panel);--ink:var(--dark-ink)}
 .accountColorSettings h3 { margin: 0 0 5px; font-size: 16px; }
 .accountColorSettings p { margin: 0 0 15px; color: var(--muted); font-size: 12px; }
 .accountColorSettings .colorGrid { margin-top: 0; }
+/* =========================================
+   XBOOK - ORDER MODAL FIX
+========================================= */
+
+/* طبقة النافذة */
+.modal,
+.order-modal,
+#orderModal {
+    align-items: flex-start !important;
+    padding: 20px !important;
+    overflow-y: auto !important;
+}
+
+/* جسم نافذة الطلب */
+.modal-content,
+.order-modal-content,
+#orderModal .modal-content {
+    width: min(520px, 100%) !important;
+    max-width: 520px !important;
+
+    max-height: calc(100vh - 40px) !important;
+
+    margin: 0 auto !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    border-radius: 18px !important;
+
+    position: relative;
+
+    scrollbar-width: thin;
+
+    animation: orderModalOpen .35s ease-out;
+}
+
+
+/* شريط التمرير */
+
+.modal-content::-webkit-scrollbar,
+.order-modal-content::-webkit-scrollbar,
+#orderModal .modal-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.modal-content::-webkit-scrollbar-track,
+.order-modal-content::-webkit-scrollbar-track,
+#orderModal .modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+.order-modal-content::-webkit-scrollbar-thumb,
+#orderModal .modal-content::-webkit-scrollbar-thumb {
+    background: #78e0ba;
+    border-radius: 20px;
+}
+
+
+/* الحركة عند فتح النافذة */
+
+@keyframes orderModalOpen {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================
+   PAYMENT CARDS
+========================================= */
+
+.payment-option {
+    min-height: 75px !important;
+
+    padding: 14px !important;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.payment-option:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   ORDER BUTTON
+========================================= */
+
+.order-submit,
+#submitOrder,
+button[type="submit"] {
+    min-height: 50px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .modal,
+    .order-modal,
+    #orderModal {
+        padding: 10px !important;
+    }
+
+    .modal-content,
+    .order-modal-content,
+    #orderModal .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        max-height: calc(100vh - 20px) !important;
+
+        border-radius: 14px !important;
+    }
+
+}
